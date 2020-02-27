@@ -1,0 +1,24 @@
+{
+  "name": "landingpage2020",
+  "version": "1.0.0",
+  "description": "落地页开发框架",
+  "main": "index.js",
+  "scripts": {
+    "serve": "gulp"
+  },
+  "keywords": [],
+  "author": "Wangyuda",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-clean": "^0.4.0",
+    "gulp-connect": "^5.7.0",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-imagemin": "^7.1.0",
+    "gulp-sass": "^4.0.2",
+    "node-sass": "^4.13.1"
+  }
+}

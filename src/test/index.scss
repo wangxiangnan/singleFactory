@@ -1,0 +1,6 @@
+$red: #f00;
+@import '../../style/base.scss';
+h1{
+    font-size: 25px;
+    color: $red; 
+}
