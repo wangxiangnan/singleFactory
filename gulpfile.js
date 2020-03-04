@@ -17,17 +17,17 @@ const gulpImagemin = require('gulp-imagemin');
 const { appEntryPath, appOutputPath } = require('./config');
 
 // task
-function clean(cb) {
-    fs.exists(appOutputPath, (exists) => {
+async function clean() {
+    fs.exists(appOutputPath, async (exists) => {
         if (exists) {
             src(path.resolve(appOutputPath, '*'), {
                 read: false
             })
                 .pipe(gulpClean({ force: true }));
             // console.log('清理文件完成');
-            cb();
+            await Promise.resolve();
         } else {
-            cb();
+            await Promise.resolve();
         }
 
     });
@@ -88,6 +88,6 @@ function watchFile(cb) {
 
 exports.default = series(
     clean,
-    parallel(html, sass, babel, imagemin),
+    series(sass, babel, imagemin, html),
     parallel(webserver, watchFile)
 );
