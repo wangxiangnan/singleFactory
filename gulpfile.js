@@ -14,6 +14,7 @@ var gulpSass = require('gulp-sass');
 gulpSass.compiler = require('node-sass');
 const gulpBabel = require('gulp-babel');
 const gulpImagemin = require('gulp-imagemin');
+const autoprefixer = require('gulp-autoprefixer');
 const { appEntryPath, appOutputPath } = require('./config');
 
 // task
@@ -58,6 +59,10 @@ function html(cb) {
 function sass() {
     return src(path.resolve(appEntryPath, '*.scss'))
         .pipe(gulpSass({ outputStyle: "compressed" }))
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions'], // 主流浏览器的最新两个版本
+            cascade: false // 是否美化属性值
+        }))
         .pipe(dest(appOutputPath))
         .pipe(gulpConnect.reload());
 }
