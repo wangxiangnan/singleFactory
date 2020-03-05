@@ -51,13 +51,15 @@ function html(cb) {
         }))
         .pipe(dest(
             appOutputPath
-        ));
+        ))
+        .pipe(gulpConnect.reload());
 }
 
 function sass() {
     return src(path.resolve(appEntryPath, '*.scss'))
         .pipe(gulpSass({ outputStyle: "compressed" }))
         .pipe(dest(appOutputPath))
+        .pipe(gulpConnect.reload());
 }
 
 function babel() {
@@ -65,7 +67,8 @@ function babel() {
         .pipe(gulpBabel({
             presets: ['@babel/preset-env']
         }))
-        .pipe(dest(appOutputPath));
+        .pipe(dest(appOutputPath))
+        .pipe(gulpConnect.reload());
 }
 
 function imagemin() { // gulpImagemin
@@ -76,14 +79,15 @@ function imagemin() { // gulpImagemin
             interlaced: true, //类型：Boolean 默认：false 隔行扫描gif进行渲染
             multipass: true //类型：Boolean 默认：false 多次优化svg直到完全优化
         }))
-        .pipe(dest(path.resolve(appOutputPath, 'images')));
+        .pipe(dest(path.resolve(appOutputPath, 'images')))
+        .pipe(gulpConnect.reload());
 }
 
 function watchFile(cb) {
-    watch([path.resolve(appEntryPath, '*.html')], parallel(html));
-    watch([path.resolve(appEntryPath, '*.scss')], parallel(sass));
-    watch([path.resolve(appEntryPath, '*.js')], parallel(babel));
-    watch([path.resolve(appEntryPath, 'images/*.*')], parallel(imagemin));
+    watch(path.resolve(appEntryPath, '*.html'), parallel(html));
+    watch(path.resolve(appEntryPath, '*.scss'), parallel(sass));
+    watch(path.resolve(appEntryPath, '*.js'), parallel(babel));
+    watch(path.resolve(appEntryPath, 'images/*.*'), parallel(imagemin));
 }
 
 exports.default = series(
